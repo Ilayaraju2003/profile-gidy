@@ -39,7 +39,7 @@ function App() {
   const handleLike = async (id) => {
 
   const res = await axios.post(
-    `http://localhost:5000/api/profile/${id}/endorse`
+    `https://profile-gidy.onrender.com/api/profile/${id}/endorse`
   );
 
   setProfiles((prev) =>
