@@ -45,22 +45,8 @@ router.put("/:id", async (req, res) => {
 
 
 // LIKE / ENDORSE profile
+
 router.post("/:id/endorse", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const updated = await prisma.profile.update({
-      where: { ID: id },
-      data: {
-        LIKES: { increment: 1 }
-      }
-    });
-
-    res.json(updated);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});router.post("/:id/endorse", async (req, res) => {
   try {
     const { id } = req.params;
 

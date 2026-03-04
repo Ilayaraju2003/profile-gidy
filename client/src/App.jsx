@@ -38,16 +38,16 @@ function App() {
   // Like / Endorse
   const handleLike = async (id) => {
 
-  const res = await axios.post(
-    `https://profile-gidy.onrender.com/api/profile/${id}/endorse`
-  );
+    const res = await axios.post(
+      `https://profile-gidy.onrender.com/api/profile/${id}/endorse`
+    );
 
-  setProfiles((prev) =>
-    prev.map((p) =>
-      p.ID === id ? res.data : p
-    )
-  );
-};
+    setProfiles((prev) =>
+      prev.map((p) =>
+        p.ID === id ? res.data : p
+      )
+    );
+  };
 
   if (profiles.length === 0) return <div className="loading">Loading...</div>;
 
@@ -101,12 +101,12 @@ function App() {
             </div>
 
             {/* Like button */}
-         <button
-  onClick={() => handleLike(profile.ID)}
-  className="endorse-btn"
->
-  👍 {profile.LIKES}
-</button>
+            <button
+              onClick={() => handleLike(profile.ID)}
+              className="endorse-btn"
+            >
+              👍 {profile.LIKES}
+            </button>
 
           </div>
 
