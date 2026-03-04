@@ -1,0 +1,148 @@
+
+
+/* Reset */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* LIGHT MODE (default) */
+
+body{
+  min-height:100vh;
+  background:#f3f4f6;
+  color:#111827;
+  transition:all 0.3s ease;
+}
+
+/* DARK MODE */
+
+.dark body{
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+}
+
+/* Container */
+
+.container{
+  padding:40px;
+}
+
+/* Header */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:40px;
+}
+
+.header h1{
+  font-size:32px;
+  font-weight:700;
+}
+
+/* Theme Button */
+
+.theme-btn{
+  background:#6366f1;
+  color:white;
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:500;
+}
+
+.theme-btn:hover{
+  background:#4f46e5;
+}
+
+/* Grid */
+
+.profile-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+
+/* Card */
+
+.profile-card{
+  background:white;
+  padding:30px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+/* Dark Card */
+
+.dark .profile-card{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.15);
+}
+
+/* Hover */
+
+.profile-card:hover{
+  transform:translateY(-8px);
+}
+
+/* Role */
+
+.role{
+  color:#6b7280;
+  font-size:14px;
+}
+
+.dark .role{
+  color:#cbd5f5;
+}
+
+/* Skills */
+
+.skills{
+  margin-top:15px;
+}
+
+.skill{
+  display:inline-block;
+  background:#3b82f6;
+  color:white;
+  padding:6px 12px;
+  margin:4px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+/* Like button */
+
+.endorse-btn{
+  margin-top:20px;
+  background:#16a34a;
+  border:none;
+  padding:10px 18px;
+  border-radius:8px;
+  color:white;
+  cursor:pointer;
+}
+
+.endorse-btn:hover{
+  background:#15803d;
+}
+
+/* Loading */
+
+.loading{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-size:22px;
+}
