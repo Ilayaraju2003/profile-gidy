@@ -4,33 +4,47 @@ const { PrismaClient } = require("@prisma/client");
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// Get profiles
+
+// GET all profiles
 router.get("/", async (req, res) => {
   try {
     const profiles = await prisma.profile.findMany();
     res.json(profiles);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 });
 
 
+// UPDATE profile
+router.put("/:id", async (req, res) => {
+  try {
 
-app.post("/api/profile", async (req, res) => {
-  const { name, role, skills, mark, grade } = req.body;
+    const { id } = req.params;
+    const { NAME, ROLE, SKILLS, MARK, GRADE } = req.body;
 
-  const result = await pool.query(
-    `UPDATE profile
-     SET name=$1, role=$2, skills=$3, mark=$4, grade=$5
-     WHERE id=$6 RETURNING *`,
-    [name, role, skills, mark, grade, "41547720-f028-4c23-937d-4ece35993c59"]
-  );
+    const updated = await prisma.profile.update({
+      where: { ID: id },
+      data: {
+        NAME,
+        ROLE,
+        SKILLS,
+        MARK,
+        GRADE
+      }
+    });
 
-  res.json(result.rows[0]);
+    res.json(updated);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
 
-// Like / Endorse profile
+// LIKE / ENDORSE profile
 router.post("/:id/endorse", async (req, res) => {
 
   try {
@@ -38,15 +52,18 @@ router.post("/:id/endorse", async (req, res) => {
     const { id } = req.params;
 
     const updated = await prisma.profile.update({
-      where: { ID: id },   // must match schema
+      where: { ID: id },
       data: {
-        LIKES: { increment: 1 }   // must match schema
+        LIKES: {
+          increment: 1
+        }
       }
     });
 
     res.json(updated);
 
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.message });
   }
 
