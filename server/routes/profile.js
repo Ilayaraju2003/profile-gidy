@@ -14,6 +14,22 @@ router.get("/", async (req, res) => {
   }
 });
 
+
+
+app.post("/api/profile", async (req, res) => {
+  const { name, role, skills, mark, grade } = req.body;
+
+  const result = await pool.query(
+    `UPDATE profile
+     SET name=$1, role=$2, skills=$3, mark=$4, grade=$5
+     WHERE id=$6 RETURNING *`,
+    [name, role, skills, mark, grade, "41547720-f028-4c23-937d-4ece35993c59"]
+  );
+
+  res.json(result.rows[0]);
+});
+
+
 // Like / Endorse profile
 router.post("/:id/endorse", async (req, res) => {
 
