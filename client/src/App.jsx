@@ -12,7 +12,7 @@ function App() {
   // Fetch profiles
   const fetchProfiles = async () => {
     try {
-      const res = await axios.get("https://profile-api.onrender.com/api/profile");
+      const res = await axios.get("https://profile-gidy.onrender.com/api/profile");
       setProfiles(res.data);
     } catch (error) {
       console.error(error);
