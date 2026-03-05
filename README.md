@@ -8,7 +8,7 @@ The application demonstrates a functional implementation of the required feature
 
 The project is deployed online and the source code is publicly available.
 
-Live Demo: 
+Live Demo: https://profile-gidy.vercel.app/                       
 Repository: 
 
 ---
@@ -41,6 +41,7 @@ Repository:
 # Setup Instructions (Run Locally)
 
 Follow these steps to run the project locally on your machine.
+
 
 
 
