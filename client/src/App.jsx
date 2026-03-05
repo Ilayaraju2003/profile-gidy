@@ -72,7 +72,7 @@ function App() {
           onClick={() => setDarkMode(!darkMode)}
           className="theme-btn"
         >
-          Toggle Theme
+          Theme
         </button>
       </div>
 
