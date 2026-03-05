@@ -11,7 +11,7 @@ function App() {
   );
 
   // API base URL
-  const API_URL = "https://profile-gidy.onrender.com/api/profile";
+  const API_URL = "http://localhost:5000/api/profile";
 
   // Fetch profiles
   const fetchProfiles = async () => {
@@ -44,7 +44,7 @@ function App() {
   const handleLike = async (id) => {
     try {
       const res = await axios.post(
-        `https://profile-gidy.onrender.com/api/profile/${id}/endorse`
+        `http://localhost:5000/api/profile/${id}/endorse`
       );
 
       setProfiles((prev) =>
