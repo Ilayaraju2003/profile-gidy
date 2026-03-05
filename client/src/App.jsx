@@ -5,22 +5,27 @@ import "./index.css";
 function App() {
 
   const [profiles, setProfiles] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
 
+  // API base URL
+  const API_URL = "https://profile-gidy.onrender.com/api/profile";
+
   // Fetch profiles
   const fetchProfiles = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/profile");
+      const res = await axios.get(API_URL);
       setProfiles(res.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching profiles:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchProfiles();
   }, []);
 
@@ -37,26 +42,30 @@ function App() {
 
   // Like / Endorse
   const handleLike = async (id) => {
+    try {
+      const res = await axios.post(
+        `https://profile-gidy.onrender.com/api/profile/${id}/endorse`
+      );
 
-    const res = await axios.post(
-      `https://profile-gidy.onrender.com/api/profile/${id}/endorse`
-    );
+      setProfiles((prev) =>
+        prev.map((p) => (p.ID === id ? res.data : p))
+      );
 
-    setProfiles((prev) =>
-      prev.map((p) =>
-        p.ID === id ? res.data : p
-      )
-    );
+    } catch (error) {
+      console.error("Error endorsing profile:", error);
+    }
   };
 
-  if (profiles.length === 0) return <div className="loading">Loading...</div>;
+  // Loading screen
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
 
   return (
     <div className="container">
 
       {/* Header */}
       <div className="header">
-
         <h1>Developer Profiles</h1>
 
         <button
@@ -65,52 +74,51 @@ function App() {
         >
           Toggle Theme
         </button>
-
       </div>
 
       {/* Profile Cards */}
       <div className="profile-grid">
 
-        {profiles.map((profile) => (
+        {profiles.length === 0 ? (
+          <p>No profiles found</p>
+        ) : (
+          profiles.map((profile) => (
 
-          <div key={profile.ID} className="profile-card">
+            <div key={profile.ID} className="profile-card">
 
-            <h2>{profile.NAME}</h2>
+              <h2>{profile.NAME}</h2>
 
-            <p className="role">{profile.ROLE}</p>
+              <p className="role">{profile.ROLE}</p>
 
-            <p>
-              Marks: <b>{profile.MARK}</b>
-            </p>
+              <p>
+                Marks: <b>{profile.MARK}</b>
+              </p>
 
-            <p>
-              Grade: <b>{profile.GRADE}</b>
-            </p>
+              <p>
+                Grade: <b>{profile.GRADE}</b>
+              </p>
 
-            {/* Skills */}
-            <div className="skills">
+              {/* Skills */}
+              <div className="skills">
+                {profile.SKILLS.split(",").map((skill) => (
+                  <span key={skill} className="skill">
+                    {skill}
+                  </span>
+                ))}
+              </div>
 
-              {profile.SKILLS.split(",").map((skill) => (
-
-                <span key={skill} className="skill">
-                  {skill}
-                </span>
-
-              ))}
+              {/* Like button */}
+              <button
+                onClick={() => handleLike(profile.ID)}
+                className="endorse-btn"
+              >
+                👍 {profile.LIKES}
+              </button>
 
             </div>
 
-            {/* Like button */}
-            <button
-              onClick={() => handleLike(profile.ID)}
-              className="endorse-btn"
-            >
-              👍 {profile.LIKES}
-            </button>
-
-          </div>
-
-        ))}
+          ))
+        )}
 
       </div>
 
