@@ -28,6 +28,7 @@ body{
 /* Container */
 
 .container{
+  width: 100%;
   padding:40px;
 }
 
